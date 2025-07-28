@@ -47,7 +47,7 @@ h2 {
 
 /* Columnas de Semestres */
 .semestre {
-    background-color: #decad0; /* <<--- LÍNEA ACTUALIZADA */
+    background-color: #decad0; /* <<--- ESTA LÍNEA ES LA IMPORTANTE */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     padding: 20px;
