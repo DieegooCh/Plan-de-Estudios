@@ -117,11 +117,12 @@ h2 {
 
 /* Estado Bloqueado */
 .ramo.bloqueado {
-    background-color: #4d2f36; /* Fondo rojo oscuro */
-    border-left-color: #dc3545; /* Borde rojo brillante */
-    color: #f5c6cb; /* Texto rojo claro */
+    background-color: #33242B; /* Un tono oscuro del rosado */
+    border-left-color: #EAB2C4; /* Borde ahora es el rosado especificado */
+    color: #f5c6cb; /* Texto rojo claro - se mantiene */
     cursor: not-allowed;
 }
+ 
 
 .ramo.bloqueado::after {
     content: '🔒';
