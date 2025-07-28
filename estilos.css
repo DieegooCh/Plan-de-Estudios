@@ -1,8 +1,8 @@
-/* Estilos Generales con Tema Oscuro */
+/* Estilos Generales con Tema Claro */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Fondo negro principal */
-    color: #e0e0e0; /* Color de texto general (gris claro) */
+    background-color: #f4f7f9; /* Fondo gris muy claro */
+    color: #333; /* Color de texto principal (oscuro) */
     margin: 0;
     padding: 20px;
     display: flex;
@@ -17,13 +17,13 @@ header {
 }
 
 h1 {
-    color: #ffffff; /* Título principal en blanco */
+    color: #1a5276; /* Título principal en azul oscuro */
     font-weight: 700;
     font-size: 2.5em;
 }
 
 h2 {
-    color: #EAB2C4; /* Subtítulo en el rosado que especificaste */
+    color: #EAB2C4; /* Subtítulo en tu color rosado */
     font-weight: 400;
     font-size: 1.5em;
     margin-top: -10px;
@@ -31,7 +31,7 @@ h2 {
 
 .motivational-quote {
     font-style: italic;
-    color: #a0a0a0; /* Color para las frases (gris medio) */
+    color: #6c757d;
     margin-top: 10px;
 }
 
@@ -47,16 +47,15 @@ h2 {
 
 /* Columnas de Semestres */
 .semestre {
-    background-color: #1e1e1e; /* Fondo de la tarjeta del semestre (gris oscuro) */
+    background-color: #ffffff; /* Fondo de la tarjeta del semestre en blanco */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     padding: 20px;
     width: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: transform 0.2s;
-    border: 1px solid #333;
 }
 
 .semestre:hover {
@@ -64,20 +63,24 @@ h2 {
 }
 
 .semestre-titulo {
-    color: #EAB2C4; /* Título del semestre en rosado */
+    color: #1a5276;
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 20px;
-    border-bottom: 2px solid #333; /* Línea separadora */
+    border-bottom: 2px solid #e9ecef;
     padding-bottom: 10px;
     width: 100%;
     text-align: center;
 }
 
-/* Estilos de los Ramos */
+/* ================================================= */
+/* ESTILOS DE RAMOS ACTUALIZADOS           */
+/* ================================================= */
+
+/* --- Ramo por defecto (No aprobado) --- */
 .ramo {
-    background-color: #2d2d2d; /* Fondo del ramo (gris oscuro) */
-    color: #f0f0f0; /* Texto del ramo */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #495057; /* Texto oscuro */
     padding: 12px 15px;
     margin-bottom: 12px;
     border-radius: 8px;
@@ -85,7 +88,8 @@ h2 {
     transition: all 0.3s ease;
     width: 100%;
     text-align: center;
-    border-left: 5px solid #555; /* Borde izquierdo por defecto */
+    border: 1px solid #e0e0e0; /* Borde sutil alrededor */
+    border-left: 5px solid #adb5bd; /* Borde izquierdo GRIS */
     font-weight: 400;
     position: relative;
 }
@@ -95,34 +99,35 @@ h2 {
     display: block;
     font-size: 0.9em;
     margin-bottom: 4px;
-    color: #EAB2C4; /* Código del ramo en rosado */
+    color: #6c757d;
 }
 
 .ramo:hover {
-    background-color: #3a3a3a;
     border-left-color: #EAB2C4; /* Borde cambia a rosado al pasar el mouse */
 }
 
-/* Estado Aprobado */
+/* --- Ramo APROBADO --- */
 .ramo.aprobado {
-    background-color: #2a3d34; /* Fondo verde oscuro */
-    border-left-color: #28a745; /* Borde verde brillante */
-    color: #a_dd_b4; /* Texto verde claro */
-    text-decoration: line-through;
+    background-color: #ffffff; /* Fondo blanco */
+    border-left-color: #EAB2C4; /* Borde izquierdo ROSADO */
+    color: #333; /* Texto más oscuro para destacar */
+    text-decoration: none; /* Quitamos el tachado para un look más limpio */
+    font-weight: 500;
 }
 
 .ramo.aprobado .codigo {
-    color: #63d471;
+    color: #EAB2C4; /* Código del ramo en rosado */
 }
 
-/* Estado Bloqueado */
+
+/* --- Ramo BLOQUEADO --- */
 .ramo.bloqueado {
-    background-color: #33242B; /* Un tono oscuro del rosado */
-    border-left-color: #EAB2C4; /* Borde ahora es el rosado especificado */
-    color: #f5c6cb; /* Texto rojo claro - se mantiene */
+    background-color: #f8f9fa; /* Fondo ligeramente gris */
+    border-left-color: #dc3545; /* Borde izquierdo rojo para indicar bloqueo */
+    color: #721c24;
     cursor: not-allowed;
+    border-color: #f5c6cb;
 }
- 
 
 .ramo.bloqueado::after {
     content: '🔒';
@@ -132,6 +137,7 @@ h2 {
     transform: translateY(-50%);
     font-size: 1.2em;
 }
+
 
 footer {
     text-align: center;
