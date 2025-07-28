@@ -101,13 +101,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Función para verificar si los requisitos de un ramo están cumplidos ---
-    function verificarRequisitos(ramo) {
-        if (ramo.req.length === 0) {
-            return true; // No tiene requisitos, siempre está desbloqueado.
-        }
-        // 'every' revisa si TODOS los requisitos en el array están en la lista de aprobados.
-        return ramo.req.every(reqId => ramosAprobados[reqId]);
+/**
+ * Verifica si un ramo puede ser aprobado.
+ * Nuevas Reglas:
+ * 1. Un ramo se desbloquea solo si TODOS los ramos del semestre anterior están aprobados.
+ * 2. Además, debe cumplir con sus prerrequisitos específicos.
+ * 3. Los ramos del primer semestre siempre están disponibles.
+ * @param {object} ramo - El objeto del ramo a verificar.
+ * @param {number} semestreIndex - El índice del semestre al que pertenece el ramo (0 para el primero).
+ * @returns {boolean} - True si el ramo está desbloqueado, false si no.
+ */
+function verificarRequisitos(ramo, semestreIndex) {
+    // Regla 3: Si es un ramo del primer semestre (índice 0), siempre está disponible.
+    if (semestreIndex === 0) {
+        return true;
     }
+
+    // Regla 1: Verificar si TODOS los ramos del semestre ANTERIOR están aprobados.
+    const ramosSemestreAnterior = mallaData[semestreIndex - 1];
+    const prevSemestreCompleto = ramosSemestreAnterior.every(r => ramosAprobados[r.id]);
+
+    // Si el semestre anterior no está completo, el ramo está bloqueado.
+    if (!prevSemestreCompleto) {
+        return false;
+    }
+
+    // Regla 2: Si el semestre anterior está completo, ahora verificamos los prerrequisitos específicos del ramo.
+    const requisitosEspecificosCumplidos = ramo.req.every(reqId => ramosAprobados[reqId]);
+
+    // El ramo solo se desbloquea si ambas condiciones (semestre anterior completo Y prerrequisitos específicos) se cumplen.
+    return requisitosEspecificosCumplidos;
+}
     
     // --- Función para encontrar el nombre de un ramo por su ID ---
     function getNombreRamoPorId(id) {
