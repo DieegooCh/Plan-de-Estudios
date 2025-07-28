@@ -103,8 +103,8 @@ h2 {
 
 /* Estado Aprobado */
 .ramo.aprobado {
-    background-color: #d1e7dd; /* Verde suave */
-    border-left-color: #198754; /* Verde oscuro */
+    background-color: #ffffff; /* Verde suave */
+    border-left-color: #EAB2C4; /* Verde oscuro */
     color: #0f5132;
     text-decoration: line-through;
 }
