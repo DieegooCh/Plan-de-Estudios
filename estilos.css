@@ -59,6 +59,11 @@ h2 {
     margin-right: auto;
 }
 
+/* Clase para ocultar elementos */
+.hidden {
+    display: none;
+}
+
 /* Columnas de Semestres */
 .semestre {
     background-color: #ffffff; /* <<--- ESTA LÍNEA ES LA IMPORTANTE */
