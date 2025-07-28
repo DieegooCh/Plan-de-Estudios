@@ -188,3 +188,60 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dibuja la malla por primera vez cuando la página carga.
     actualizarVisualizacionMalla();
 });
+// --- Función principal para crear y actualizar la visualización de la malla ---
+function actualizarVisualizacionMalla() {
+    contenedorMalla.innerHTML = ''; // Limpia la malla actual para redibujarla.
+
+    // --- NUEVO: Control de la barra de felicitaciones ---
+    const congratsBar = document.getElementById('congrats-bar');
+    const numAprobados = Object.keys(ramosAprobados).length; // Contamos cuántos ramos están aprobados
+
+    if (numAprobados > 0) {
+        congratsBar.classList.remove('hidden'); // Si hay 1 o más, muestra la barra
+    } else {
+        congratsBar.classList.add('hidden'); // Si no hay ninguno, oculta la barra
+    }
+    // --- FIN DEL CÓDIGO NUEVO ---
+
+    // Itera sobre cada semestre definido en 'mallaData'.
+    mallaData.forEach((ramosDelSemestre, index) => {
+        const semestreDiv = document.createElement('div');
+        semestreDiv.className = 'semestre';
+
+        const titulo = document.createElement('h3');
+        titulo.className = 'semestre-titulo';
+        // Corregimos el texto del semestre para que sea dinámico
+        const nombreSemestre = `${index + 1}er Semestre`;
+        switch(index + 1) {
+            case 1: titulo.textContent = "1er Semestre"; break;
+            case 2: titulo.textContent = "2do Semestre"; break;
+            case 3: titulo.textContent = "3er Semestre"; break;
+            default: titulo.textContent = `${index + 1}to Semestre`;
+        }
+        semestreDiv.appendChild(titulo);
+
+        // Itera sobre cada ramo dentro del semestre actual.
+        ramosDelSemestre.forEach(ramo => {
+            const ramoDiv = document.createElement('div');
+            ramoDiv.className = 'ramo';
+            ramoDiv.dataset.id = ramo.id; // Guarda el id en el elemento.
+
+            // Agrega el código y nombre del ramo al div.
+            ramoDiv.innerHTML = `<span class="codigo">${ramo.id}</span>${ramo.nombre}`;
+
+            // Aplica los estilos visuales según el estado del ramo.
+            if (ramosAprobados[ramo.id]) {
+                ramoDiv.classList.add('aprobado');
+            } else if (!verificarRequisitos(ramo)) {
+                ramoDiv.classList.add('bloqueado');
+            }
+            
+            // Añade el evento de clic a cada ramo.
+            ramoDiv.addEventListener('click', () => manejarClickRamo(ramo, ramoDiv));
+            
+            semestreDiv.appendChild(ramoDiv);
+        });
+
+        contenedorMalla.appendChild(semestreDiv);
+    });
+}
