@@ -1,8 +1,8 @@
 /* Estilos Generales con Tema Claro */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f7f9; /* Fondo gris muy claro */
-    color: #333; /* Color de texto principal (oscuro) */
+    background-color: #EDEAE6; /* <<--- LÍNEA ACTUALIZADA CON EL NUEVO COLOR */
+    color: #333; 
     margin: 0;
     padding: 20px;
     display: flex;
