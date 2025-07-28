@@ -214,6 +214,8 @@ function verificarRequisitos(ramo, semestreIndex) {
 });
 // --- Función principal para crear y actualizar la visualización de la malla ---
 function actualizarVisualizacionMalla() {
+
+    // El código de tu foto va aquí, al inicio de la función
     contenedorMalla.innerHTML = ''; // Limpia la malla actual para redibujarla.
 
     // --- NUEVO: Control de la barra de felicitaciones ---
@@ -226,6 +228,45 @@ function actualizarVisualizacionMalla() {
         congratsBar.classList.add('hidden'); // Si no hay ninguno, oculta la barra
     }
     // --- FIN DEL CÓDIGO NUEVO ---
+
+
+    // El resto de la función continúa normalmente para dibujar los semestres
+    mallaData.forEach((ramosDelSemestre, index) => {
+        const semestreDiv = document.createElement('div');
+        semestreDiv.className = 'semestre';
+
+        const titulo = document.createElement('h3');
+        titulo.className = 'semestre-titulo';
+        // Corregimos el texto del semestre para que sea dinámico
+        switch(index + 1) {
+            case 1: titulo.textContent = "1er Semestre"; break;
+            case 2: titulo.textContent = "2do Semestre"; break;
+            case 3: titulo.textContent = "3er Semestre"; break;
+            default: titulo.textContent = `${index + 1}to Semestre`;
+        }
+        semestreDiv.appendChild(titulo);
+
+        ramosDelSemestre.forEach(ramo => {
+            const ramoDiv = document.createElement('div');
+            ramoDiv.className = 'ramo';
+            ramoDiv.dataset.id = ramo.id;
+
+            ramoDiv.innerHTML = `<span class="codigo">${ramo.id}</span>${ramo.nombre}`;
+
+            if (ramosAprobados[ramo.id]) {
+                ramoDiv.classList.add('aprobado');
+            } else if (!verificarRequisitos(ramo, index)) { // Asegúrate que esta línea tenga el ", index"
+                ramoDiv.classList.add('bloqueado');
+            }
+            
+            ramoDiv.addEventListener('click', () => manejarClickRamo(ramo, ramoDiv));
+            
+            semestreDiv.appendChild(ramoDiv);
+        });
+
+        contenedorMalla.appendChild(semestreDiv);
+    });
+}
 
     // Itera sobre cada semestre definido en 'mallaData'.
     mallaData.forEach((ramosDelSemestre, index) => {
