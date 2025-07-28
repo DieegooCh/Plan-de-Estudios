@@ -1,6 +1,6 @@
-/* Estilos generales y fuente */
+/* Estilos Generales */
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #f4f7f9;
     color: #333;
     margin: 0;
@@ -13,124 +13,152 @@ body {
 header {
     text-align: center;
     margin-bottom: 30px;
-    max-width: 900px;
-}
-
-header h1 {
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-/* Contenedor principal de la malla */
-.malla-container {
-    display: flex;
-    gap: 15px; /* Espacio entre columnas de semestre */
     width: 100%;
-    max-width: 1200px;
-    overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
-    padding-bottom: 15px;
 }
 
-/* Columna de cada semestre */
+h1 {
+    color: #005f73;
+    font-weight: 700;
+    font-size: 2.5em;
+}
+
+h2 {
+    color: #0a9396;
+    font-weight: 400;
+    font-size: 1.5em;
+    margin-top: -10px;
+}
+
+.motivational-quote {
+    font-style: italic;
+    color: #6c757d;
+    margin-top: 15px;
+}
+
+/* Contenedor Principal de la Malla */
+#malla-curricular {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1600px;
+}
+
+/* Columnas de Semestres */
 .semestre {
-    flex: 1; /* Cada semestre ocupa el mismo espacio */
-    min-width: 180px; /* Ancho mínimo para cada columna */
     background-color: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    width: 280px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.semestre:hover {
+    transform: translateY(-5px);
 }
 
 .semestre-titulo {
-    font-weight: 800;
-    color: #3498db;
-    text-align: center;
-    margin-bottom: 10px;
+    color: #005f73;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e9ecef;
     padding-bottom: 10px;
-    border-bottom: 2px solid #ecf0f1;
+    width: 100%;
+    text-align: center;
 }
 
-/* Estilos de cada ramo */
+/* Estilos de los Ramos */
 .ramo {
-    background-color: #ecf0f1;
-    color: #2c3e50;
-    padding: 12px;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 12px 15px;
+    margin-bottom: 12px;
     border-radius: 8px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 0.9em;
     cursor: pointer;
-    border-left: 5px solid #3498db;
-    transition: all 0.3s ease; /* Transición suave para cambios */
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    border-left: 5px solid #6c757d;
+    font-weight: 400;
+    position: relative;
+}
+
+.ramo .codigo {
+    font-weight: 700;
+    display: block;
+    font-size: 0.9em;
+    margin-bottom: 4px;
 }
 
 .ramo:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #dee2e6;
+    border-left-color: #0a9396;
 }
 
-/* --- Estados de los ramos --- */
-
-/* Ramo aprobado (verde) */
+/* Estado Aprobado */
 .ramo.aprobado {
-    background-color: #d4edda;
-    border-left-color: #28a745;
-    color: #155724;
+    background-color: #d1e7dd; /* Verde suave */
+    border-left-color: #198754; /* Verde oscuro */
+    color: #0f5132;
     text-decoration: line-through;
-    opacity: 0.9;
 }
 
-/* Ramo bloqueado (gris) */
+.ramo.aprobado:hover {
+    background-color: #b_dd_cb;
+}
+
+/* Estado Bloqueado */
 .ramo.bloqueado {
-    background-color: #e9ecef;
-    border-left-color: #6c757d;
-    color: #6c757d;
-    cursor: not-allowed; /* Cambia el cursor para indicar que no es clickeable */
-    opacity: 0.7;
+    background-color: #f8d7da; /* Rojo suave */
+    border-left-color: #dc3545; /* Rojo oscuro */
+    color: #842029;
+    cursor: not-allowed;
 }
 
-.ramo.bloqueado:hover {
-    transform: none; /* Sin efecto hover si está bloqueado */
-    box-shadow: none;
+.ramo.bloqueado::after {
+    content: '🔒';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
 }
 
-/* Mensaje flotante de requisitos */
-.mensaje-flotante {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #e74c3c;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+
+footer {
     text-align: center;
+    margin-top: 40px;
+    color: #6c757d;
+    font-size: 0.9em;
 }
 
-.mensaje-flotante.oculto {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-    pointer-events: none;
-}
-
-/* Diseño Responsivo para celulares */
+/* Diseño Responsivo */
 @media (max-width: 768px) {
     body {
         padding: 10px;
     }
-    .malla-container {
-        /* En pantallas pequeñas, las columnas se apilan verticalmente */
+
+    #malla-curricular {
         flex-direction: column;
-        align-items: stretch; /* Estira los items para que ocupen el ancho */
-        overflow-x: hidden;
+        align-items: center;
     }
+
     .semestre {
-        min-width: 0; /* Resetea el ancho mínimo */
+        width: 90%;
+        max-width: 400px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.2em;
     }
 }
