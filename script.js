@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ramoDiv = document.createElement('div');
                 ramoDiv.className = 'ramo';
                 ramoDiv.dataset.id = ramo.id;
-                ramoDiv.innerHTML = `<span class="codigo">${ramo.id}</span>${ramo.nombre}`;
+                ramoDiv.innerHTML = ramo.nombre;
 
                 if (ramosAprobados[ramo.id]) {
                     ramoDiv.classList.add('aprobado');
