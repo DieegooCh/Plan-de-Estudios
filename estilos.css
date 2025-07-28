@@ -45,25 +45,6 @@ h2 {
     max-width: 1600px;
 }
 
-/* Barra de Felicitaciones */
-.congrats-bar {
-    background-color: #28a745; /* Fondo verde */
-    color: #ffffff; /* Texto blanco */
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 25px; /* Espacio para separarlo de lo de arriba */
-    max-width: 600px; /* Ancho máximo de la barra */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Clase para ocultar elementos */
-.hidden {
-    display: none;
-}
-
 /* Columnas de Semestres */
 .semestre {
     background-color: #ffffff; /* <<--- ESTA LÍNEA ES LA IMPORTANTE */
