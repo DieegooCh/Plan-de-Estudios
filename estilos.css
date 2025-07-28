@@ -1,8 +1,8 @@
-/* Estilos Generales */
+/* Estilos Generales con Tema Oscuro */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f7f9;
-    color: #333;
+    background-color: #121212; /* Fondo negro principal */
+    color: #e0e0e0; /* Color de texto general (gris claro) */
     margin: 0;
     padding: 20px;
     display: flex;
@@ -17,13 +17,13 @@ header {
 }
 
 h1 {
-    color: #005f73;
+    color: #ffffff; /* Título principal en blanco */
     font-weight: 700;
     font-size: 2.5em;
 }
 
 h2 {
-    color: #0a9396;
+    color: #EAB2C4; /* Subtítulo en el rosado que especificaste */
     font-weight: 400;
     font-size: 1.5em;
     margin-top: -10px;
@@ -31,8 +31,8 @@ h2 {
 
 .motivational-quote {
     font-style: italic;
-    color: #6c757d;
-    margin-top: 15px;
+    color: #a0a0a0; /* Color para las frases (gris medio) */
+    margin-top: 10px;
 }
 
 /* Contenedor Principal de la Malla */
@@ -47,15 +47,16 @@ h2 {
 
 /* Columnas de Semestres */
 .semestre {
-    background-color: #ffffff;
+    background-color: #1e1e1e; /* Fondo de la tarjeta del semestre (gris oscuro) */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     width: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: transform 0.2s;
+    border: 1px solid #333;
 }
 
 .semestre:hover {
@@ -63,11 +64,11 @@ h2 {
 }
 
 .semestre-titulo {
-    color: #005f73;
+    color: #EAB2C4; /* Título del semestre en rosado */
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 20px;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid #333; /* Línea separadora */
     padding-bottom: 10px;
     width: 100%;
     text-align: center;
@@ -75,8 +76,8 @@ h2 {
 
 /* Estilos de los Ramos */
 .ramo {
-    background-color: #e9ecef;
-    color: #495057;
+    background-color: #2d2d2d; /* Fondo del ramo (gris oscuro) */
+    color: #f0f0f0; /* Texto del ramo */
     padding: 12px 15px;
     margin-bottom: 12px;
     border-radius: 8px;
@@ -84,7 +85,7 @@ h2 {
     transition: all 0.3s ease;
     width: 100%;
     text-align: center;
-    border-left: 5px solid #6c757d;
+    border-left: 5px solid #555; /* Borde izquierdo por defecto */
     font-weight: 400;
     position: relative;
 }
@@ -94,30 +95,31 @@ h2 {
     display: block;
     font-size: 0.9em;
     margin-bottom: 4px;
+    color: #EAB2C4; /* Código del ramo en rosado */
 }
 
 .ramo:hover {
-    background-color: #dee2e6;
-    border-left-color: #0a9396;
+    background-color: #3a3a3a;
+    border-left-color: #EAB2C4; /* Borde cambia a rosado al pasar el mouse */
 }
 
 /* Estado Aprobado */
 .ramo.aprobado {
-    background-color: #ffffff; /* Verde suave */
-    border-left-color: #EAB2C4; /* Verde oscuro */
-    color: #0f5132;
+    background-color: #2a3d34; /* Fondo verde oscuro */
+    border-left-color: #28a745; /* Borde verde brillante */
+    color: #a_dd_b4; /* Texto verde claro */
     text-decoration: line-through;
 }
 
-.ramo.aprobado:hover {
-    background-color: #b_dd_cb;
+.ramo.aprobado .codigo {
+    color: #63d471;
 }
 
 /* Estado Bloqueado */
 .ramo.bloqueado {
-    background-color: #f8d7da; /* Rojo suave */
-    border-left-color: #dc3545; /* Rojo oscuro */
-    color: #842029;
+    background-color: #4d2f36; /* Fondo rojo oscuro */
+    border-left-color: #dc3545; /* Borde rojo brillante */
+    color: #f5c6cb; /* Texto rojo claro */
     cursor: not-allowed;
 }
 
@@ -130,7 +132,6 @@ h2 {
     font-size: 1.2em;
 }
 
-
 footer {
     text-align: center;
     margin-top: 40px;
@@ -138,7 +139,7 @@ footer {
     font-size: 0.9em;
 }
 
-/* Diseño Responsivo */
+/* Diseño Responsivo (sin cambios) */
 @media (max-width: 768px) {
     body {
         padding: 10px;
