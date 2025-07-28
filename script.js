@@ -2,10 +2,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Definición de Datos de la Malla Curricular ---
-    // Aquí se listan todos los ramos de la carrera, organizados por semestre.
-    // 'id': identificador único para cada ramo.
-    // 'nombre': nombre completo del ramo.
-    // 'req': un array con los 'id' de los ramos que son prerrequisitos. Un array vacío [] significa que no tiene.
     const mallaData = [
         // 1er Semestre
         [
@@ -32,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'MVET632', nombre: 'Cuerpo Animal II', req: ['MVET622'] },
             { id: 'MVET633', nombre: 'FDO I', req: [] }
         ],
+        // ... (El resto de los semestres siguen aquí)
         // 4to Semestre
         [
             { id: 'DEBD140', nombre: 'Eco.General', req: ['DEBD130'] },
@@ -91,64 +88,83 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const contenedorMalla = document.getElementById('malla-curricular');
-    // Carga los ramos aprobados desde el almacenamiento local del navegador.
-    // Si no hay nada guardado, inicia con un objeto vacío.
     let ramosAprobados = JSON.parse(localStorage.getItem('ramosAprobados')) || {};
 
-    // --- Función para guardar el progreso ---
     function guardarProgreso() {
         localStorage.setItem('ramosAprobados', JSON.stringify(ramosAprobados));
     }
 
-    // --- Función para verificar si los requisitos de un ramo están cumplidos ---
-    function verificarRequisitos(ramo) {
-        if (ramo.req.length === 0) {
-            return true; // No tiene requisitos, siempre está desbloqueado.
-        }
-        // 'every' revisa si TODOS los requisitos en el array están en la lista de aprobados.
-        return ramo.req.every(reqId => ramosAprobados[reqId]);
-    }
-    
-    // --- Función para encontrar el nombre de un ramo por su ID ---
     function getNombreRamoPorId(id) {
         for (const semestre of mallaData) {
             const ramo = semestre.find(r => r.id === id);
-            if (ramo) {
-                return ramo.nombre;
-            }
+            if (ramo) return ramo.nombre;
         }
-        return "Desconocido"; // Fallback por si no lo encuentra
+        return "Desconocido";
     }
 
+    /**
+     * ESTA ES LA FUNCIÓN CLAVE CON LA LÓGICA CORRECTA
+     * Verifica si un ramo está desbloqueado.
+     * @param {object} ramo - El ramo a verificar.
+     * @param {number} semestreIndex - El índice del semestre (0 es el primero).
+     * @returns {boolean} - True si se puede cursar, false si está bloqueado.
+     */
+    function verificarRequisitos(ramo, semestreIndex) {
+        // Los ramos del primer semestre siempre están disponibles.
+        if (semestreIndex === 0) {
+            return true;
+        }
 
-    // --- Función para manejar el clic en un ramo ---
+        // --- REGLA PRINCIPAL: VERIFICAR SEMESTRE ANTERIOR ---
+        // Obtiene la lista de ramos del semestre anterior.
+        const ramosSemestreAnterior = mallaData[semestreIndex - 1];
+        // Revisa si CADA UNO de los ramos anteriores está en la lista de aprobados.
+        const prevSemestreCompleto = ramosSemestreAnterior.every(r => ramosAprobados[r.id]);
+
+        // Si el semestre anterior no está completo, el ramo actual está bloqueado.
+        if (!prevSemestreCompleto) {
+            return false;
+        }
+
+        // Si el semestre anterior SÍ está completo, ahora revisamos los prerrequisitos específicos del ramo.
+        return ramo.req.every(reqId => ramosAprobados[reqId]);
+    }
+
     function manejarClickRamo(ramo, elementoDiv) {
         const idRamo = ramo.id;
+        const semestreIndex = mallaData.findIndex(semestre => semestre.some(r => r.id === idRamo));
 
-        // Si el ramo ya está aprobado, al hacer clic se "des-aprueba".
         if (ramosAprobados[idRamo]) {
+            // Si el ramo ya está aprobado, se des-aprueba.
             delete ramosAprobados[idRamo];
         } else {
-            // Si no está aprobado, verifica los requisitos.
-            if (verificarRequisitos(ramo)) {
-                ramosAprobados[idRamo] = true; // Marca como aprobado.
+            // Si no está aprobado, verifica si se puede aprobar.
+            if (verificarRequisitos(ramo, semestreIndex)) {
+                ramosAprobados[idRamo] = true;
             } else {
-                // Si los requisitos no se cumplen, muestra una alerta.
-                const nombresRequisitos = ramo.req.map(reqId => getNombreRamoPorId(reqId)).join(', ');
-                alert(`No puedes marcar este ramo. Aún te falta aprobar: ${nombresRequisitos}.`);
-                return; // Detiene la función aquí para no continuar.
+                // Si no se puede, muestra un error.
+                alert("No puedes marcar este ramo. Debes aprobar todos los ramos del semestre anterior y sus prerrequisitos específicos.");
+                return;
             }
         }
-        
-        guardarProgreso(); // Guarda el estado actual en el navegador.
-        actualizarVisualizacionMalla(); // Vuelve a dibujar la malla con los cambios.
+        guardarProgreso();
+        actualizarVisualizacionMalla();
     }
-
-    // --- Función principal para crear y actualizar la visualización de la malla ---
+    
     function actualizarVisualizacionMalla() {
-        contenedorMalla.innerHTML = ''; // Limpia la malla actual para redibujarla.
+        contenedorMalla.innerHTML = '';
 
-        // Itera sobre cada semestre definido en 'mallaData'.
+        // Lógica para la barra de felicitaciones
+        const congratsBar = document.getElementById('congrats-bar');
+        if (congratsBar) {
+            if (Object.keys(ramosAprobados).length > 0) {
+                congratsBar.classList.remove('hidden');
+            } else {
+                congratsBar.classList.add('hidden');
+            }
+        }
+
+        // Dibuja todos los semestres y ramos
         mallaData.forEach((ramosDelSemestre, index) => {
             const semestreDiv = document.createElement('div');
             semestreDiv.className = 'semestre';
@@ -156,35 +172,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const titulo = document.createElement('h3');
             titulo.className = 'semestre-titulo';
             titulo.textContent = `${index + 1}er Semestre`;
+            if (index === 1) titulo.textContent = "2do Semestre";
+            if (index === 2) titulo.textContent = "3er Semestre";
+            if (index > 2) titulo.textContent = `${index + 1}to Semestre`;
             semestreDiv.appendChild(titulo);
 
-            // Itera sobre cada ramo dentro del semestre actual.
             ramosDelSemestre.forEach(ramo => {
                 const ramoDiv = document.createElement('div');
                 ramoDiv.className = 'ramo';
-                ramoDiv.dataset.id = ramo.id; // Guarda el id en el elemento.
-
-                // Agrega el código y nombre del ramo al div.
+                ramoDiv.dataset.id = ramo.id;
                 ramoDiv.innerHTML = `<span class="codigo">${ramo.id}</span>${ramo.nombre}`;
 
-                // Aplica los estilos visuales según el estado del ramo.
                 if (ramosAprobados[ramo.id]) {
                     ramoDiv.classList.add('aprobado');
-                } else if (!verificarRequisitos(ramo)) {
+                } else if (!verificarRequisitos(ramo, index)) { // Aquí se aplica el bloqueo
                     ramoDiv.classList.add('bloqueado');
                 }
                 
-                // Añade el evento de clic a cada ramo.
                 ramoDiv.addEventListener('click', () => manejarClickRamo(ramo, ramoDiv));
-                
                 semestreDiv.appendChild(ramoDiv);
             });
-
             contenedorMalla.appendChild(semestreDiv);
         });
     }
 
-    // --- Llamada Inicial ---
-    // Dibuja la malla por primera vez cuando la página carga.
+    // Llamada Inicial para dibujar la malla
     actualizarVisualizacionMalla();
 });
