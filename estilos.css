@@ -1,8 +1,8 @@
 /* Estilos Generales con Tema Claro */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #EAB2C4; /* <<--- LÍNEA ACTUALIZADA CON EL COLOR ROSADO */
-    color: #333; 
+    background-color: #decad0; /* <<--- LÍNEA ACTUALIZADA */
+    color: #333;
     margin: 0;
     padding: 20px;
     display: flex;
@@ -47,7 +47,7 @@ h2 {
 
 /* Columnas de Semestres */
 .semestre {
-    background-color: #ffffff; /* Fondo de la tarjeta del semestre en blanco */
+    background-color: #decad0; /* <<--- LÍNEA ACTUALIZADA */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     padding: 20px;
